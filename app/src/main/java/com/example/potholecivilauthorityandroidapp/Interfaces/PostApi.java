@@ -29,10 +29,7 @@ public interface PostApi {
     @GET("post/posts")
     Call<List<Post>> getPosts(@Query("pageno") int pageno);
 
-    @GET("post/upload")
-    Call<Signed> getSignedUpload(@Query("filename") String filename);
 
-    @Multipart
-    @POST
-    Call<String> uploadMedia(@Url String url, @Part("key") RequestBody key, @Part("Content-Disposition") RequestBody contentDisposition, @Part("Content-Type") RequestBody contentType, @Part("bucket") RequestBody bucket, @Part("X-Amz-Algorithm") RequestBody XAMZAlgorithm, @Part("X-Amz-Credential") RequestBody XAMZCredentials, @Part("X-Amz-Date") RequestBody XAMZDate , @Part("Policy") RequestBody Policy, @Part("X-Amz-Signature")  RequestBody XAMZSignature, @Part MultipartBody.Part file);
+    @POST("case/merge")
+    Call<ResponseBody> mergePost(@Body Post post);
 }

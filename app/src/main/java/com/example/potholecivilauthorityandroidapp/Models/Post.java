@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Post {
 
+    @SerializedName("cid")
+    String cid;
+    @SerializedName("pid")
+    String pid;
     @SerializedName("text")
     String text;
     @SerializedName("image")
@@ -18,10 +22,23 @@ public class Post {
     @SerializedName("timestamp")
     long timestamp;
 
+    public Post(String pid, String cid) {
+        this.pid = pid;
+        this.cid = cid;
+    }
+
     public Post(String text, String image, Location location) {
         this.text = text;
         this.image = image;
         this.location = location;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getText() {

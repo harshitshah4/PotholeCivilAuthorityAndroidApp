@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn",false);
 
         if(!isLoggedIn){
-            startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
         }
 

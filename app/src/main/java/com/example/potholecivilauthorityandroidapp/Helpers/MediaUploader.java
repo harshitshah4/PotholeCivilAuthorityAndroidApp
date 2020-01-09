@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 
 
+import com.example.potholecivilauthorityandroidapp.Interfaces.CaseApi;
 import com.example.potholecivilauthorityandroidapp.Interfaces.PostApi;
+import com.example.potholecivilauthorityandroidapp.Models.Case;
 import com.example.potholecivilauthorityandroidapp.Models.Field;
 import com.example.potholecivilauthorityandroidapp.Models.Signed;
 
@@ -27,12 +29,12 @@ public class MediaUploader {
 
         Retrofit retrofit = NetworkHelper.getRetrofitInstance(context);
 
-        final PostApi postApi = retrofit.create(PostApi.class);
+        final CaseApi caseApi = retrofit.create(CaseApi.class);
 
         final File file = saveBitmap(context,bitmap);
 
 
-        Call<Signed> signedCall = postApi.getSignedUpload(file.getName());
+        Call<Signed> signedCall = caseApi.getSignedUpload(file.getName());
         signedCall.enqueue(new Callback<Signed>() {
             @Override
             public void onResponse(Call<Signed> call, Response<Signed> response) {
@@ -47,7 +49,7 @@ public class MediaUploader {
                     RequestBody requestBody = RequestBody.create(MediaType.parse("image/*0"),file);
                     MultipartBody.Part filePart = MultipartBody.Part.createFormData("file",file.getName(),requestBody);
 
-                    Call<String> mediaCall = postApi.uploadMedia(response.body().getUrl(),getRequestBody(field.getKey()),getRequestBody(field.getContentDisposition()),getRequestBody(field.getContentType()),getRequestBody(field.getBucket()),getRequestBody(field.getXAMZAlgorithm()),getRequestBody(field.getXAMZCredentials()),getRequestBody(field.getXAMZDate()),getRequestBody(field.getPolicy()),getRequestBody(field.getXAMZSignature()),filePart);
+                    Call<String> mediaCall = caseApi.uploadMedia(response.body().getUrl(),getRequestBody(field.getKey()),getRequestBody(field.getContentDisposition()),getRequestBody(field.getContentType()),getRequestBody(field.getBucket()),getRequestBody(field.getXAMZAlgorithm()),getRequestBody(field.getXAMZCredentials()),getRequestBody(field.getXAMZDate()),getRequestBody(field.getPolicy()),getRequestBody(field.getXAMZSignature()),filePart);
 
                     mediaCall.enqueue(new Callback<String>() {
                         @Override
