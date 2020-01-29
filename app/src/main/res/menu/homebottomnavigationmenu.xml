@@ -6,6 +6,11 @@
         android:icon="@drawable/ic_home_black_24dp"
         />
     <item
+        android:id="@+id/heatmapmenuid"
+        android:title="HeatMaps"
+        android:icon="@drawable/ic_trending_up_black_24dp"
+        />
+    <item
         android:id="@+id/accountmenuid"
         android:title="Account"
         android:icon="@drawable/ic_account_circle_black_24dp"

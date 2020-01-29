@@ -65,7 +65,7 @@ public class CaseListDialogFragment extends DialogFragment {
 
         CaseApi caseApi = retrofit.create(CaseApi.class);
 
-        Call<List<Case>> casesCall = caseApi.getCases();
+        Call<List<Case>> casesCall = caseApi.getCases(0,"All");
 
 
         casesCall.enqueue(new Callback<List<Case>>() {

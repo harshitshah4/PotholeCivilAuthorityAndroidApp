@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.potholecivilauthorityandroidapp.Fragments.HeatMapFragment;
 import com.example.potholecivilauthorityandroidapp.Fragments.HomeFragment;
 import com.example.potholecivilauthorityandroidapp.Fragments.ProfileFragment;
 import com.example.potholecivilauthorityandroidapp.R;
@@ -55,6 +56,9 @@ public class HomeActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.homemenuid:
                         replaceFragment(new HomeFragment());
+                        return true;
+                    case R.id.heatmapmenuid:
+                        replaceFragment(new HeatMapFragment());
                         return true;
                     case R.id.accountmenuid:
                         replaceFragment(new ProfileFragment());

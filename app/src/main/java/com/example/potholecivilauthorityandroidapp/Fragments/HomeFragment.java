@@ -16,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.potholecivilauthorityandroidapp.Adapters.CasesRecyclerViewAdapter;
@@ -24,6 +28,7 @@ import com.example.potholecivilauthorityandroidapp.Interfaces.CaseApi;
 import com.example.potholecivilauthorityandroidapp.Models.Case;
 import com.example.potholecivilauthorityandroidapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,12 +43,23 @@ public class HomeFragment extends Fragment {
 
     Context context;
 
+    int pageno = 0;
+
+    int filter = 0;
+
+    ProgressBar caseLoadingProgressBar;
+
+    Spinner casesFilterSpinner;
+
     RecyclerView casesRecyclerView;
 
 
     CasesRecyclerViewAdapter casesRecyclerViewAdapter;
 
     List<Case> caseList;
+
+    final List<String> list = new ArrayList<String>();
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -63,21 +79,74 @@ public class HomeFragment extends Fragment {
 
         context = getContext();
 
+
+        caseLoadingProgressBar = view.findViewById(R.id.caseloadingprogressbarid);
+        casesFilterSpinner = view.findViewById(R.id.casesfilterspinnerid);
         casesRecyclerView = view.findViewById(R.id.homecasesrecyclerviewid);
 
         casesRecyclerView.setHasFixedSize(true);
         casesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
 
+        list.add("All");
+        list.add("Assigned");
+        list.add("Resolved");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        casesFilterSpinner.setAdapter(dataAdapter);
+
+        casesFilterSpinner.setSelection(filter);
+
+        casesFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filter = position;
+                casesFilterSpinner.setSelection(filter);
+                getCases();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0  && resultCode == Activity.RESULT_OK){
+
+            if(data!=null && data.getExtras().get("data")!=null){
+
+                Toast.makeText(context,"Called",Toast.LENGTH_LONG).show();
+
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                casesRecyclerViewAdapter.resolveCase(bitmap);
+            }
+
+
+        }
+    }
+
+    private void getCases(){
+
+        caseLoadingProgressBar.setVisibility(View.VISIBLE);
+
         Retrofit retrofit = NetworkHelper.getRetrofitInstance(context);
 
         final CaseApi caseApi = retrofit.create(CaseApi.class);
 
-        Call<List<Case>> caseCall = caseApi.getCases();
+        Call<List<Case>> caseCall = caseApi.getCases(pageno,list.get(filter));
 
         caseCall.enqueue(new Callback<List<Case>>() {
             @Override
             public void onResponse(Call<List<Case>> call, Response<List<Case>> response) {
+
+                caseLoadingProgressBar.setVisibility(View.GONE);
 
                 if(response.isSuccessful()){
                     if(response.body()!=null && response.body().size() > 0){
@@ -101,27 +170,23 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Case>> call, Throwable t) {
+
+                caseLoadingProgressBar.setVisibility(View.GONE);
+
                 Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show();
             }
         });
 
 
+
+
     }
 
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0  && resultCode == Activity.RESULT_OK){
+    public void onResume() {
+        super.onResume();
 
-            if(data!=null && data.getExtras().get("data")!=null){
-
-                Toast.makeText(context,"Called",Toast.LENGTH_LONG).show();
-
-                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                casesRecyclerViewAdapter.resolveCase(bitmap);
-            }
-
-
-        }
+        getCases();
     }
 }
