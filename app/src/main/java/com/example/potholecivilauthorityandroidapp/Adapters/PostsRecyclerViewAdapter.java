@@ -118,6 +118,10 @@ public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<PostsRecycler
         }
 
 
+        if(post.getLocation().getDescription()!=null){
+            holder.postLocationTextView.setText(post.getLocation().getDescription());
+        }
+
 
         holder.postLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override

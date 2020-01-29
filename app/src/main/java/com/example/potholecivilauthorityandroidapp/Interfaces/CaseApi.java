@@ -26,6 +26,9 @@ public interface CaseApi {
     @GET("case/cases")
     Call<List<Case>> getCases();
 
+    @GET("case/status")
+    Call<List<Status>> getStatus(@Query("cid") String cid);
+
     @POST("case/resolve")
     Call<ResponseBody> resolveCase(@Body Status status);
 

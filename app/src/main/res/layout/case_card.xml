@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="550dp"
     app:cardUseCompatPadding="true">
 
 
@@ -23,8 +23,9 @@
             <TextView
 
                 android:id="@+id/casecaseidtextviewid"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:textSize="25sp"
                 tools:text="Case Id"
                 />
@@ -32,8 +33,9 @@
             <Button
 
                 android:id="@+id/caseresolvebuttonid"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:text="Resolve"
 
                 />
@@ -44,7 +46,7 @@
             android:id="@+id/casepostsrecyclerviewid"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="3.5"
             android:orientation="horizontal"
             />
 
@@ -58,7 +60,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 >
 
@@ -69,8 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="15sp"
-                    tools:text="Status"
-                    />
+                    tools:text="Status" />
 
 
 
@@ -88,6 +89,24 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/casestatusmessagetextviewid"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:textSize="15sp"
+                tools:text="Message"
+                />
+
+            <TextView
+                android:id="@+id/casestatustimestamptextviewid"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:textSize="15sp"
+                tools:text="TimeStamp"
+                />
+
+            <TextView
                 android:id="@+id/casetimestamptextviewid"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -100,7 +119,7 @@
                 android:id="@+id/caseviewstatusesbuttonid"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:text="View Statuses"
                 />
 

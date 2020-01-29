@@ -14,11 +14,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.potholecivilauthorityandroidapp.Activities.HomeActivity;
+import com.example.potholecivilauthorityandroidapp.Fragments.CaseListDialogFragment;
+import com.example.potholecivilauthorityandroidapp.Fragments.FullScreenImageDialogFragment;
 import com.example.potholecivilauthorityandroidapp.Fragments.HomeFragment;
+import com.example.potholecivilauthorityandroidapp.Fragments.StatusListDialogFragment;
 import com.example.potholecivilauthorityandroidapp.Helpers.MediaUploader;
 import com.example.potholecivilauthorityandroidapp.Helpers.NetworkHelper;
 import com.example.potholecivilauthorityandroidapp.Interfaces.CaseApi;
@@ -67,31 +71,60 @@ public class CasesRecyclerViewAdapter extends RecyclerView.Adapter<CasesRecycler
 
         holder.caseIdTextView.setText(currentCase.getCid());
 
-        if(currentCase.getStatus()!=null && currentCase.getStatus().getStatus()!=null){
-            if(currentCase.getStatus().getStatus().equals("Assigned")){
-                holder.caseResolveButton.setEnabled(true);
-                holder.caseResolveButton.setVisibility(View.VISIBLE);
+        if(currentCase.getStatus()!=null){
 
-            }else{
-                holder.caseResolveButton.setEnabled(false);
-                holder.caseResolveButton.setVisibility(View.GONE);
+            if(currentCase.getStatus().getStatus()!=null){
+                if(currentCase.getStatus().getStatus().equals("Assigned")){
+                    holder.caseResolveButton.setEnabled(true);
+                    holder.caseResolveButton.setVisibility(View.VISIBLE);
+
+                }else{
+                    holder.caseResolveButton.setEnabled(false);
+                    holder.caseResolveButton.setVisibility(View.GONE);
+                }
+
+                if(currentCase.getStatus().getStatus().equals("Resolved")){
+                    holder.caseViewProofButton.setEnabled(true);
+                    holder.caseViewProofButton.setVisibility(View.VISIBLE);
+
+                }else{
+                    holder.caseViewProofButton.setEnabled(false);
+                    holder.caseViewProofButton.setVisibility(View.GONE);
+                }
+
+                holder.caseStatusTestView.setText(currentCase.getStatus().getStatus());
             }
 
-            if(currentCase.getStatus().getStatus().equals("Resolved")){
-                holder.caseViewProofButton.setEnabled(true);
-                holder.caseViewProofButton.setVisibility(View.VISIBLE);
-
+            if(currentCase.getStatus().getMessage()!=null){
+                holder.caseStatusMessageTextView.setVisibility(View.VISIBLE);
+                holder.caseStatusMessageTextView.setText(currentCase.getStatus().getMessage());
             }else{
-                holder.caseViewProofButton.setEnabled(false);
-                holder.caseViewProofButton.setVisibility(View.GONE);
+                holder.caseStatusMessageTextView.setVisibility(View.GONE);
             }
 
-            holder.caseStatusTestView.setText(currentCase.getStatus().getStatus());
+            if(currentCase.getStatus().getTimestamp()>0){
+                holder.caseStatusTimeStampTextView.setVisibility(View.VISIBLE);
+                holder.caseStatusTimeStampTextView.setText(String.valueOf(currentCase.getStatus().getTimestamp()));
+            }else{
+                holder.caseStatusTimeStampTextView.setVisibility(View.GONE);
+            }
         }else{
             holder.caseResolveButton.setEnabled(false);
             holder.caseResolveButton.setVisibility(View.GONE);
         }
 
+
+        holder.caseViewProofButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager fragmentManager = ((HomeActivity) context).getSupportFragmentManager();
+
+                FullScreenImageDialogFragment fullScreenImageDialogFragment = new FullScreenImageDialogFragment(currentCase.getStatus().getProof_image());
+
+                fullScreenImageDialogFragment.show(fragmentManager,"imagedialog");
+            }
+        });
 
         holder.caseResolveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +145,17 @@ public class CasesRecyclerViewAdapter extends RecyclerView.Adapter<CasesRecycler
                 }
 
 
+            }
+        });
+
+        holder.caseViewStatusesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = ((HomeActivity) context).getSupportFragmentManager();
+
+                StatusListDialogFragment caseListDialogFragment = new StatusListDialogFragment(currentCase.getCid());
+
+                caseListDialogFragment.show(fragmentManager,"statuslistdialog");
             }
         });
 
@@ -171,6 +215,9 @@ public class CasesRecyclerViewAdapter extends RecyclerView.Adapter<CasesRecycler
         RecyclerView postsRecyclerView;
 
         TextView caseStatusTestView;
+        TextView caseStatusMessageTextView;
+        TextView caseStatusTimeStampTextView;
+
         Button caseViewProofButton;
 
         Button caseViewStatusesButton;
@@ -187,6 +234,9 @@ public class CasesRecyclerViewAdapter extends RecyclerView.Adapter<CasesRecycler
             postsRecyclerView = itemView.findViewById(R.id.casepostsrecyclerviewid);
 
             caseStatusTestView = itemView.findViewById(R.id.casestatustextviewid);
+            caseStatusMessageTextView = itemView.findViewById(R.id.casestatusmessagetextviewid);
+            caseStatusTimeStampTextView = itemView.findViewById(R.id.casestatustimestamptextviewid);
+
             caseViewProofButton = itemView.findViewById(R.id.caseviewproofbuttonid);
 
             caseViewStatusesButton = itemView.findViewById(R.id.caseviewstatusesbuttonid);
