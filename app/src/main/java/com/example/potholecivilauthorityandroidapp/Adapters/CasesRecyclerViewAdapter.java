@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,6 +92,28 @@ public class CasesRecyclerViewAdapter extends RecyclerView.Adapter<CasesRecycler
                     holder.caseViewProofButton.setEnabled(false);
                     holder.caseViewProofButton.setVisibility(View.GONE);
                 }
+
+                switch (currentCase.getStatus().getStatus()){
+                    case "Processing":
+                        holder.caseStatusTestView.setTextColor(context.getResources().getColor(R.color.processing));
+                        holder.caseStatusTestView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_button_unchecked_black_24dp,0,0,0);
+                        break;
+                    case "Resolved":
+                        holder.caseStatusTestView.setTextColor(context.getResources().getColor(R.color.resolved));
+                        holder.caseStatusTestView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_done_black_24dp,0,0,0);
+                        break;
+                    case "Assigned":
+                        holder.caseStatusTestView.setTextColor(context.getResources().getColor(R.color.assigned));
+                        holder.caseStatusTestView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_person_outline_black_24dp,0,0,0);
+                        break;
+                    case "Rejected":
+                        holder.caseStatusTestView.setTextColor(context.getResources().getColor(R.color.rejected));
+                        holder.caseStatusTestView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_info_outline_black_24dp,0,0,0);
+                        break;
+
+                }
+
+
 
                 holder.caseStatusTestView.setText(currentCase.getStatus().getStatus());
             }
@@ -218,7 +241,7 @@ public class CasesRecyclerViewAdapter extends RecyclerView.Adapter<CasesRecycler
         TextView caseStatusMessageTextView;
         TextView caseStatusTimeStampTextView;
 
-        Button caseViewProofButton;
+        ImageButton caseViewProofButton;
 
         Button caseViewStatusesButton;
 

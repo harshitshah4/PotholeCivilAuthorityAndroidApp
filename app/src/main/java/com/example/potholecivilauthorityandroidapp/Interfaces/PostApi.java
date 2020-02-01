@@ -1,6 +1,7 @@
 package com.example.potholecivilauthorityandroidapp.Interfaces;
 
 
+import com.example.potholecivilauthorityandroidapp.Models.Location;
 import com.example.potholecivilauthorityandroidapp.Models.Post;
 import com.example.potholecivilauthorityandroidapp.Models.ResponseBody;
 import com.example.potholecivilauthorityandroidapp.Models.Signed;
@@ -22,6 +23,7 @@ public interface PostApi {
 
     @POST("post")
     Call<ResponseBody> addPost(@Body Post post);
+
 
     @GET("post")
     Call<Post> getPost(@Query("pid") String pid);
