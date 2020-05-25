@@ -3,15 +3,16 @@ This is repository for Pothole Civil Authority Android app
 
 This is one of the components of a complete Pothole App 
 
-The complete understanding of Pothole app could be found over here []
+### **I highly suggest you to first read [Detail of Pothole App](https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/POTHOLE.md)**
 
-Links to other components : 
+### Links to other components : 
 
-Pothole Civil Authority Server
-Pothole User Android App 
-Pothole User Server 
+Repo to components of the app:
+- [Pothole User Android App (Current)](https://github.com/harshitshah4/PotholeUserAndroidApp)
+- [Pothole User Server (Private)](https://github.com/harshitshah4/PotholeUserServer)
+- [Pothole Civil Authority Android App](https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp)
+- [Pothole Civil Authority Server (Private)](https://github.com/harshitshah4/PotholeCivilAuthorityServer)
 
-Lambda 
 
 This app is the frontend interface for Admin / Civil Authorities .
 
