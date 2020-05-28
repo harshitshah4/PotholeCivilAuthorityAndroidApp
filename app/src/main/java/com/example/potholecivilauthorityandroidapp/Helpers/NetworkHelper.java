@@ -4,6 +4,7 @@ package com.example.potholecivilauthorityandroidapp.Helpers;
 
 import android.content.Context;
 
+import com.example.potholecivilauthorityandroidapp.R;
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -15,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkHelper {
 
-    private static final String BASE_URL = "http://potholecivilauthorityserver-env.fswcujbmib.ap-south-1.elasticbeanstalk.com/";
+
 
     public static Retrofit getRetrofitInstance(Context context){
 
@@ -27,7 +28,7 @@ public class NetworkHelper {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(context.getString(R.string.BASE_URL))
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

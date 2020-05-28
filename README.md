@@ -3,14 +3,13 @@ This is repository for Pothole Civil Authority Android app
 
 This is one of the components of a complete Pothole App 
 
-### **I highly suggest you to first read [Detail of Pothole App](https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/POTHOLE.md)**
+### **I highly suggest you to first read [Detail of Pothole App](https://harshitshah4.github.io/portfolio/project/PotholeProblem)**
 
-### Links to other components : 
+### Repo Links to other components : 
 
-Repo to components of the app:
-- [Pothole User Android App (Current)](https://github.com/harshitshah4/PotholeUserAndroidApp)
+- [Pothole User Android App](https://github.com/harshitshah4/PotholeUserAndroidApp)
 - [Pothole User Server (Private)](https://github.com/harshitshah4/PotholeUserServer)
-- [Pothole Civil Authority Android App](https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp)
+- [Pothole Civil Authority Android App (Current)](https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp)
 - [Pothole Civil Authority Server (Private)](https://github.com/harshitshah4/PotholeCivilAuthorityServer)
 
 
@@ -35,7 +34,11 @@ An account must be created for the Civil authority in database manually , specif
 
 Android (Java) , Retrofit , Glide , etc.
 
-## Screenshots
 
+#### NOTE :
+> Replace the BASE_URL in strings , with you url.
+
+## Screenshots
+<img src="https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp/blob/master/Screenshot1.png" align="left" width="30%" height="auto" alt="Screenshot of App"/>
 
 > There are few fixes that are needed to be done , so before using it into production make sure of some fixes.
